@@ -149,39 +149,44 @@ export default function TeamPage() {
       {/* Team Members */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8">
             {teamMembers.map((member) => (
-              <Card key={member.id} className="hover:shadow-lg transition-shadow">
+              <Card key={member.id} className="hover:shadow-lg transition-shadow overflow-hidden">
                 <CardHeader>
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white">{member.avatar}</span>
+                  <div className="flex items-start justify-between gap-6">
+                    <div className="flex-1">
+                      <div className="mb-3">
+                        <CardTitle className="text-xl mb-1">{member.name}</CardTitle>
+                        <CardDescription className="text-base">{member.role}</CardDescription>
+                      </div>
+                      
+                      <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
+                        <div className="flex items-center">
+                          <MapPin className="h-4 w-4 mr-1" />
+                          {member.location}
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-1" />
+                          {member.experience}
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <CardTitle className="text-lg">{member.name}</CardTitle>
-                      <CardDescription>{member.role}</CardDescription>
+                    
+                    <div className="flex-shrink-0">
+                      <div className="w-24 h-24 rounded-lg overflow-hidden bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                        <span className="text-2xl font-bold text-white">{member.avatar}</span>
+                      </div>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-muted-foreground text-sm">{member.bio}</p>
 
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {member.location}
-                    </div>
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      {member.experience}
-                    </div>
-                  </div>
-
                   <div className="space-y-2">
                     <h4 className="font-semibold text-sm">Specializations</h4>
                     <div className="flex flex-wrap gap-2">
                       {member.specializations.map((spec) => (
-                        <Badge key={spec} variant="secondary" className="text-xs">
+                        <Badge key={spec} className="text-xs bg-primary/10 text-primary hover:bg-primary/20">
                           {spec}
                         </Badge>
                       ))}
@@ -192,7 +197,7 @@ export default function TeamPage() {
                     <h4 className="font-semibold text-sm">Key Skills</h4>
                     <div className="flex flex-wrap gap-2">
                       {member.skills.slice(0, 4).map((skill) => (
-                        <Badge key={skill} className="text-xs">
+                        <Badge key={skill} variant="secondary" className="text-xs">
                           {skill}
                         </Badge>
                       ))}
@@ -204,10 +209,12 @@ export default function TeamPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                  <div className="flex items-center justify-between pt-4 border-t border-border mt-6">
+                    <div className="flex items-center space-x-3 text-sm text-muted-foreground">
                       <Award className="h-4 w-4" />
                       <span>{member.projects} projects</span>
+                      <span className="text-muted-foreground/50">•</span>
+                      <span>{member.certifications.length} certifications</span>
                     </div>
                     <div className="flex space-x-2">
                       <Button size="sm" variant="ghost" asChild>
